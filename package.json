@@ -1,0 +1,26 @@
+{
+  "name": "nodejs-express",
+  "version": "1.0.0",
+  "description": "nodejs and express best practice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenvin-nguyen/nodejs-express.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express"
+  ],
+  "author": "kevin-nguyen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kenvin-nguyen/nodejs-express/issues"
+  },
+  "homepage": "https://github.com/kenvin-nguyen/nodejs-express#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
