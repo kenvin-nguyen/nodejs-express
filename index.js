@@ -2,6 +2,7 @@ var app = require('express')();
 var bodyParser = require('body-parser');
 
 const api_router = require('./rest_api/api_routing');
+const logger = require('./helpers/logger');
 const PORT = process.env.PORT || 3001;
 
 app.use(bodyParser.json());
@@ -15,6 +16,6 @@ app.use('/',(req, res) =>{
 });
 
 app.listen(PORT, () => {
-    console.log(`Listening on port: ${PORT}`);
+    logger.info(`Listening on port: ${PORT}`);
 });
 

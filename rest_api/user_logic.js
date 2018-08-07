@@ -9,7 +9,6 @@ function getUserByUsername(username){
     .then(rows => {
         return rows[0];
     });
-
 }
 
 
