@@ -6,13 +6,13 @@ const winston = require('winston');
 require('winston-daily-rotate-file');
 
 // create log dir
-let appFile = `../log/app-log-%DATE%.log`;
-mkdirp(path.dirname(appFile));
+let appLogFile = `./log/app-log-%DATE%.log`;
+mkdirp(path.dirname(appLogFile));
 
 let transports=[];
-transports.push(new winston.transports.Console({
+transports.push(new winston.transports.DailyRotateFile({
     level: 'info',
-    filename: appFile,
+    filename: appLogFile,
     datePattern: 'DDMMYYYY',
     handleExceptions: true,
     colorize: false,
