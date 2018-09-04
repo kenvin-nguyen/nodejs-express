@@ -28,7 +28,7 @@ ppLogin =  (req, res, next) => {
     passport.authenticate('local-login',
         (err, user) => {
             if (err) {
-                res.status(500).send('Something is wrong.');
+                res.status(500).send(err);
             }
             else if (!user) {
                 res.status(500).send('Username or pass is wrong.');
