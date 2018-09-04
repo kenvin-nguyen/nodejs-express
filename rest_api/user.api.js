@@ -6,6 +6,7 @@ const logger = require('../helpers/logger');
 const test_account = { username: 'kevin', password: '123456'};
 
 const passport = require('./security/passport.js');
+const auth = require('./security/auth');
 
 login = async(req, res) =>{
     try {
@@ -37,6 +38,7 @@ ppLogin =  (req, res, next) => {
                     if (err) {
                         res.status(500).send('Something is wrong.');
                     } else {
+                        delete req.user.password;
                         res.json(req.user);
                     }
                 });
@@ -63,7 +65,13 @@ ppSignup = (req, res, next) => {
     })(req, res, next);
 };
 
+getUser = async(req, res) =>{
+    const user = await userlogic.findById(req.params.id);
+    res.json(user);
+}
+
 user_router.post('/login', login);
 user_router.post('/pplogin', ppLogin);
 user_router.post('/ppsignup', ppSignup);
- module.exports = user_router;
+user_router.get('/:id', auth.isAuthenticated(), getUser);
+module.exports = user_router;
