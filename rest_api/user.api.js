@@ -71,8 +71,13 @@ logout = (req, res) => {
 };
 
 getUser = async(req, res) =>{
-    const user = await userlogic.findById(req.params.id);
-    res.json(user);
+    try {
+        const user = await userlogic.findById(req.params.id);
+        res.json(user);
+    } catch (error) {
+        logger.log({level: 'error', message: error });
+        res.status(500).send('Server internal error!');
+    }
 }
 
 user_router.post('/login', login);
