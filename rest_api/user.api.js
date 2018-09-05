@@ -65,12 +65,18 @@ ppSignup = (req, res, next) => {
     })(req, res, next);
 };
 
+logout = (req, res) => {
+    req.logout();
+    res.json('logout');
+};
+
 getUser = async(req, res) =>{
     const user = await userlogic.findById(req.params.id);
     res.json(user);
 }
 
 user_router.post('/login', login);
+user_router.get('/logout', logout);
 user_router.post('/pplogin', ppLogin);
 user_router.post('/ppsignup', ppSignup);
 user_router.get('/:id', auth.isAuthenticated(), getUser);
