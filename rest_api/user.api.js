@@ -1,12 +1,10 @@
 var express = require('express');
 var user_router = express.Router();
-var userlogic = require('./user_logic');
+var userlogic = require('./logic_user');
 const logger = require('../helpers/logger');
-
-const test_account = { username: 'kevin', password: '123456'};
-
 const passport = require('./security/passport.js');
 const auth = require('./security/auth');
+const logicjwt = require('./logic_jwt_authen');
 
 login = async(req, res) =>{
     try {
@@ -34,14 +32,16 @@ ppLogin =  (req, res, next) => {
             else if (!user) {
                 res.status(500).send('Username or pass is wrong.');
             } else {
-                req.login(user, err => {
-                    if (err) {
-                        res.status(500).send('Something is wrong.');
-                    } else {
-                        delete req.user.password;
-                        res.json(req.user);
-                    }
-                });
+                // req.login(user, err => {
+                //     if (err) {
+                //         res.status(500).send('Something is wrong.');
+                //     } else {
+                //         delete req.user.password;
+                //         res.json(req.user);
+                //     }
+                // });
+
+                res.json(logicjwt.createLoginTokenRes(user));
             }
     })(req, res, next);
 }
@@ -53,14 +53,15 @@ ppSignup = (req, res, next) => {
             res.status(500).send(err);
         }
         else {
-            req.login(user, err => {
-                if (err) {
+            // req.login(user, err => {
+            //     if (err) {
                    
-                    res.status(500).send('Something is wrong.');
-                } else {
-                    res.json(req.user);
-                }
-            });
+            //         res.status(500).send('Something is wrong.');
+            //     } else {
+            //         res.json(req.user);
+            //     }
+            // });
+            res.json(logicjwt.createLoginTokenRes(user));
         }
     })(req, res, next);
 };
@@ -84,5 +85,5 @@ user_router.post('/login', login);
 user_router.get('/logout', logout);
 user_router.post('/pplogin', ppLogin);
 user_router.post('/ppsignup', ppSignup);
-user_router.get('/:id', auth.isAuthenticated(), getUser);
+user_router.get('/:id', auth.isAuthenticatedInToken(), getUser);
 module.exports = user_router;

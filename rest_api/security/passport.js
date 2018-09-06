@@ -2,7 +2,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcrypt-nodejs');
 
-var userlogic = require('../user_logic');
+var userlogic = require('../logic_user');
 const logger = require('../../helpers/logger');
 
 // used to serialize the user for the session
